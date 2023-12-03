@@ -4,8 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: {
-    bundle: path.resolve(__dirname, 'src/index.js'),
-    zidCarousel: path.resolve(__dirname, 'src/zidCarousel'),
+    zidProducts: path.resolve(__dirname, 'src/index.js'),
+    zidCategories: path.resolve(__dirname, 'src/zidCategories'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -28,6 +28,10 @@ module.exports = {
       {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.js$/,
