@@ -3,34 +3,44 @@ import devices from '../utils/sizes';
 
 const styles = {
   // start main styles
+  resetSpace: {
+    margin: '0',
+    padding: '0',
+  },
   link: {
     'text-decoration': 'none',
   },
+  makeGap: {
+    display: 'flex',
+    gap: '3px',
+    'align-items': 'center',
+  },
   // main popup
-  relatedProduct: {
+  popUp: {
     position: 'fixed',
     top: '50%',
     left: '50%',
-    width: '90%',
+    'max-width': '90%',
     'max-height': '90vh',
     background: '#fff',
     transform: 'translate(-50%, -50%)',
-    'border-radius': '20px',
+    'border-radius': '24px',
     border: '1px solid #ccc',
     'z-index': '10',
   },
   // Header
-  relatedProductHeader: {
+  popUpHeader: {
     display: 'flex',
     'justify-content': 'space-between',
     'align-items': 'center',
-    'background-color': '#ddd',
+    'background-color': '#F5F7F7',
     'border-radius': ' 20px 20px 0 0',
-    padding: '5px 10px',
+    padding: '15px 30px',
   },
-  relatedProductHeaderHead: {
-    'font-size': '16px',
-    'font-weight': 'bold',
+  popUpHeaderHead: {
+    'font-size': '22px',
+    color: '#121212',
+    'font-weight': 'lighter',
   },
   closeImg: {
     width: '20px',
@@ -38,69 +48,90 @@ const styles = {
     cursor: 'pointer',
   },
   // Cards
-  relatedProductCards: {
-    display: 'grid',
-    'grid-template-columns': 'repeat(auto-fit, minmax(200px, 1fr))',
-    padding: '30px 20px',
-    gap: '20px',
-    'overflow-y': 'auto',
-    'overflow-x': 'hidden',
-    'max-height': '60vh',
-  },
-  relatedProductCard: {
-    display: "'flex'",
+
+  popUpCard: {
+    display: 'flex',
     'flex-direction': 'column',
     gap: '20px',
-    height: '100%',
+    'max-width': '256px',
   },
-  relatedProductCardHead: {
+  con: {
+    position: 'absolute',
+    display: 'flex',
+    'justify-content': 'space-between',
+    'align-items': 'center',
+    'z-index': '10',
+    top: '0',
+    left: '0',
+    right: '0',
+    bottom: '0',
+  },
+  // swiper
+  swiperSlide: {
+    display: 'grid !important',
+    'place-items': 'center',
+  },
+  mySwiper: {
+    padding: '60px 0 !important',
+  },
+
+  popUpContainerImg: {
+    'background-color': '#E1E2E2',
+    'max-width': '256px',
+    height: '256px',
+    display: 'flex',
+    'justify-content': 'center',
+    'align-items': 'center',
+    'border-radius': '12px',
+  },
+  popUpImg: {
+    'max-height': '100%',
+    'max-width': '100%',
+    'object-fit': 'contain',
+    'border-radius': '12px',
+  },
+  popUpCardHead: {
     'font-size': '16px',
     'font-weight': 'bold',
     color: '#000',
   },
-  relatedProductImg: {
-    height: '240px',
-    'object-fit': 'fill',
-    background: '#e1e2e2',
-    'border-radius': '20px',
-    width: '100%',
-  },
-  relatedProductCardFooter: {
+  popUpCardFooter: {
     display: 'flex',
     'justify-content': 'space-between',
     'align-items': 'center',
     gap: '10px',
   },
-  relatedProductCardPrice: {
-    color: '#000',
+  popUpCardPrice: {
+    color: '#91268F',
   },
-  relatedProductCardLineThrough: {
+  popUpCardLineThrough: {
     'text-decoration': 'line-through',
+    color: '#BDBDBD',
   },
-  relatedProductCardSalePrice: {
+  popUpCardSalePrice: {
     color: '#5b5b5b',
     color: 'red',
   },
-  relatedProductCardCartImgContainer: {
-    border: '1px solid #6464de',
+  popUpCardCartImgContainer: {
+    border: '1px solid #91268F',
     'border-radius': '50%',
     display: 'flex',
     'justify-content': 'center',
     'align-items': 'center',
     padding: '6px',
   },
-  relatedProductCardCartImg: {
+  popUpCardCartImg: {
     width: '20px',
     height: '20px',
     'object-fit': 'contain',
   },
   // Footer
-  relatedProductFooter: {
+  popUpFooter: {
     display: 'flex',
     'justify-content': 'center',
     margin: '10px 0',
   },
-  relatedProductFooterButton: {
+  popUpFooterButton: {
     'background-color': '#6464de',
     'border-radius': '28px',
     color: '#fff',
@@ -109,9 +140,15 @@ const styles = {
     cursor: 'pointer',
     padding: '5px 20px',
   },
+
   [devices.md]: {
-    relatedProductFooterButton: {
+    popUpFooterButton: {
       padding: '10px 100px',
+    },
+  },
+  [devices.lg]: {
+    con: {
+      display: 'none',
     },
   },
 };

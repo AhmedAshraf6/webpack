@@ -1,0 +1,16 @@
+<span class="${" item.sale_price.amount>
+  0 ? classes.relatedProductCardLineThrough : '' }>
+  ${item?.price?.amount}${item?.price?.currency}
+</span>
+${ item?.sale_price?.amount !== null && item?.sale_price?.amount !== undefined ?
+`<span class="${classes.relatedProductCardSalePrice}"
+  >${item?.sale_price?.amount}${item?.sale_price?.currency}</span
+>` : '' }
+<div class="${classes.relatedProductCardCartImgContainer}">
+  <img
+    src="https://learnandedu.com/frontend/img/cart2.png"
+    class="${"
+    classes.relatedProductCardCartImg
+    }
+  />
+</div>

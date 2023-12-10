@@ -5,7 +5,6 @@ module.exports = {
   mode: 'development',
   entry: {
     zidProducts: path.resolve(__dirname, 'src/index.js'),
-    zidCategories: path.resolve(__dirname, 'src/zidCategories'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
