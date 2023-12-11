@@ -1,16 +1,12 @@
-<span class="${" item.sale_price.amount>
-  0 ? classes.relatedProductCardLineThrough : '' }>
-  ${item?.price?.amount}${item?.price?.currency}
-</span>
-${ item?.sale_price?.amount !== null && item?.sale_price?.amount !== undefined ?
-`<span class="${classes.relatedProductCardSalePrice}"
-  >${item?.sale_price?.amount}${item?.sale_price?.currency}</span
->` : '' }
-<div class="${classes.relatedProductCardCartImgContainer}">
-  <img
-    src="https://learnandedu.com/frontend/img/cart2.png"
-    class="${"
-    classes.relatedProductCardCartImg
-    }
-  />
-</div>
+function initSwiper(slidesPerView) { console.log(slidesPerView); } var slides =
+document.querySelectorAll('.swiper-slide'); var popup =
+document.querySelector('.popup'); function setSlidesPerView() { const
+screenWidth = window.innerWidth; const numberOfProducts = products.length; var
+totalWidth = 0; slides.forEach(function (slide) { totalWidth += 300; });
+popup.style.maxWidth = totalWidth + 'px'; if (screenWidth >= 1024) { if
+(numberOfProducts >= 4) { initSwiper(4); // Set 4 slides per view if there are 4
+or more products } else { initSwiper(numberOfProducts); // Set the number of
+products as slides per view } } else { initSwiper(2); // Set 2 slides per view
+for smaller screens } } // Call the function initially setSlidesPerView(); //
+Event listener for window resize window.addEventListener('resize', function () {
+// Recalculate and set slides per view on resize setSlidesPerView(); });

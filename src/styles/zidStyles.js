@@ -15,18 +15,22 @@ const styles = {
     gap: '3px',
     'align-items': 'center',
   },
+  cursorPointer: {
+    cursor: 'pointer',
+  },
   // main popup
   popUp: {
     position: 'fixed',
     top: '50%',
     left: '50%',
-    'max-width': '90%',
+    width: '90vw',
     'max-height': '90vh',
     background: '#fff',
     transform: 'translate(-50%, -50%)',
     'border-radius': '24px',
     border: '1px solid #ccc',
     'z-index': '10',
+    overflow: 'hidden',
   },
   // Header
   popUpHeader: {
@@ -52,6 +56,7 @@ const styles = {
   popUpCard: {
     display: 'flex',
     'flex-direction': 'column',
+    'justify-content': 'space-between',
     gap: '20px',
     'max-width': '256px',
   },
@@ -67,12 +72,12 @@ const styles = {
     bottom: '0',
   },
   // swiper
-  swiperSlide: {
-    display: 'grid !important',
-    'place-items': 'center',
-  },
+  // swiperSlide: {
+  //   display: 'grid !important',
+  //   'place-items': 'center',
+  // },
   mySwiper: {
-    padding: '60px 0 !important',
+    padding: '60px 40px !important',
   },
 
   popUpContainerImg: {

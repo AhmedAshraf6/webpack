@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', async function () {
     const response = await axios.get(
       'https://dashboard.tuskup.appsbunches.com/api/script-content?store_name=qsekts.zid.store'
     );
-    if (response.data.data.products.length > 0) {
+    const { products, categories } = response.data.data;
+    if (products?.length > 0) {
       // popUp
       const popUp = document.createElement('div');
       popUp.classList.add(classes.popUp);
+      popUp.classList.add('popup');
       // Header
       const Header = document.createElement('div');
       Header.classList.add(classes.popUpHeader);
@@ -50,8 +52,8 @@ document.addEventListener('DOMContentLoaded', async function () {
       document.querySelector('.products-cart').appendChild(popUp);
 
       // Create and append slides
-      for (let i = 0; i < response.data.data.products.length; i++) {
-        const item = response.data.data.products[i];
+      for (let i = 0; i < products.length; i++) {
+        const item = products[i];
         const slide = document.createElement('div');
         slide.classList.add('swiper-slide');
         slide.classList.add(classes.swiperSlide);
@@ -103,51 +105,56 @@ document.addEventListener('DOMContentLoaded', async function () {
 
       // Initialize Swiper
       const mySwiper = new Swiper('.swiper', {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        centeredSlides: false,
-        initialSlide: 2,
-
+        slidesPerView: 2, // Show 2 slides by default
+        spaceBetween: 20, // Space between slides
         breakpoints: {
-          400: {
-            slidesPerView: 2,
-            spaceBetween: 30,
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 30,
-          },
-
           1024: {
-            slidesPerView: 4,
+            slidesPerView: 4, // Show 4 slides when screen width is 1024px or more
             spaceBetween: 30,
           },
         },
         modules: [Navigation],
-
         // Add other configurations as needed
       });
+
+      // resize
+      // function setPopupWidth() {
+      //   const slides = document.querySelectorAll('.swiper-slide');
+      //   const popup = document.querySelector('.popup');
+      //   const wrapper = document.querySelector('.swiper-wrapper');
+      //   let totalWidth = wrapper.clientWidth;
+
+      //   let t = '';
+      //   slides.forEach(function (slide) {
+      //     t += Math.ceil((slide.offsetWidth / totalWidth) * 100);
+      //     console.log(t);
+      //   });
+      //   popup.style.width = t + 'vw';
+      // }
+      // setPopupWidth();
+      // window.addEventListener('resize', function () {
+      //   setPopupWidth();
+      // });
       // prev and next
-      // const prev = document.createElement('div');
-      // prev.classList.add('swiper-button-prev');
-      // const next = document.createElement('div');
-      // next.classList.add('swiper-button-next');
-      // sw.appendChild(prev);
-      // sw.appendChild(next);
       const con = document.createElement('div');
       con.classList.add(classes.con);
 
       const prevButton = document.createElement('img');
       prevButton.src = arrowRight;
+      prevButton.classList.add(classes.cursorPointer);
       prevButton.addEventListener('click', () => mySwiper.slidePrev());
 
       const nextButton = document.createElement('img');
       nextButton.src = arrowLeft;
+      nextButton.classList.add(classes.cursorPointer);
       nextButton.addEventListener('click', () => mySwiper.slideNext());
 
       con.appendChild(prevButton);
       con.appendChild(nextButton);
       sw.appendChild(con);
+    }
+    if (categories.length > 0) {
+      console.log('yes');
     }
   } catch (error) {
     console.log(error);
