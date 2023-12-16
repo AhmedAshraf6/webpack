@@ -7,6 +7,16 @@ const styles = {
     margin: '0',
     padding: '0',
   },
+  overlay: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
+    background: '#000',
+    opacity: '50%',
+    'z-index': '99',
+  },
   link: {
     'text-decoration': 'none',
   },
@@ -23,14 +33,36 @@ const styles = {
     position: 'fixed',
     top: '50%',
     left: '50%',
-    width: '90vw',
+    // width: '200px',
+    'max-width': '1200px',
     'max-height': '90vh',
     background: '#fff',
     transform: 'translate(-50%, -50%)',
     'border-radius': '24px',
     border: '1px solid #ccc',
-    'z-index': '10',
+    'z-index': '999',
     overflow: 'hidden',
+  },
+  // Tabs
+  categoriesPopupTabs: {
+    margin: '20px 0',
+    'border-bottom': '1px solid #ccc',
+    display: 'flex',
+    'justify-content': 'space-around',
+    'align-items': 'center',
+  },
+  category: {
+    cursor: 'pointer',
+    '&:hover': {
+      background: '#f4f4f4',
+    },
+    color: '#9a9a9a',
+    'font-weight': 'bold',
+    'padding-bottom': '7px',
+  },
+  categoryActive: {
+    color: '#91268F',
+    'border-bottom': '3px solid #91268F',
   },
   // Header
   popUpHeader: {
@@ -47,8 +79,8 @@ const styles = {
     'font-weight': 'lighter',
   },
   closeImg: {
-    width: '20px',
-    height: '20px',
+    width: '12px',
+    height: '12px',
     cursor: 'pointer',
   },
   // Cards
@@ -72,10 +104,15 @@ const styles = {
     bottom: '0',
   },
   // swiper
-  // swiperSlide: {
-  //   display: 'grid !important',
-  //   'place-items': 'center',
-  // },
+  swiperSlide: {
+    // display: 'grid !important',
+    // 'place-items': 'center',
+  },
+  imgArrows: {
+    width: '42px!important',
+    height: '42px!important',
+    cursor: 'pointer',
+  },
   mySwiper: {
     padding: '60px 40px !important',
   },
@@ -99,6 +136,9 @@ const styles = {
     'font-size': '16px',
     'font-weight': 'bold',
     color: '#000',
+    height: '40px',
+    overflow: 'hidden',
+    'line-height': '20px',
   },
   popUpCardFooter: {
     display: 'flex',
@@ -124,6 +164,7 @@ const styles = {
     'justify-content': 'center',
     'align-items': 'center',
     padding: '6px',
+    cursor: 'pointer',
   },
   popUpCardCartImg: {
     width: '20px',
@@ -145,16 +186,46 @@ const styles = {
     cursor: 'pointer',
     padding: '5px 20px',
   },
-
+  // Error Messages
+  Messages: {
+    position: 'fixed',
+    top: '10%',
+    left: '50%',
+    width: '300px',
+    'max-height': '90vh',
+    background: '#fff',
+    transform: 'translateX(-50%)',
+    'border-radius': '12px',
+    'z-index': '9999',
+    overflow: 'hidden',
+    padding: '20px 40px',
+  },
+  containerMessages: {
+    display: 'flex',
+    'justify-content': 'space-between',
+    'align-items': 'center',
+  },
+  containerMessagesContent: {
+    display: 'flex',
+    'align-items': 'center',
+    gap: '15px',
+  },
+  MessagesContentHead: {
+    'font-size': '16px',
+    'font-weight': 'bold',
+  },
   [devices.md]: {
     popUpFooterButton: {
       padding: '10px 100px',
     },
   },
   [devices.lg]: {
-    con: {
-      display: 'none',
+    Messages: {
+      width: '500px',
     },
+    // con: {
+    //   display: 'none',
+    // },
   },
 };
 
