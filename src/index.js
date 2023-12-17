@@ -325,22 +325,25 @@ document.addEventListener('DOMContentLoaded', async function () {
       popUp.appendChild(categoriesPopupTabs);
 
       // Swiper
-      const sw = document.createElement('div');
-      sw.classList.add('swiper');
-      sw.classList.add(classes.mySwiper);
-
-      // Swiper Wrapper
-      let swiperWrapper = document.createElement('div');
-      swiperWrapper.classList.add('swiper-wrapper');
-      swiperWrapper.classList.add(classes.swiperContainer);
-      sw.appendChild(swiperWrapper);
-      // append Swiper in popUp
-      popUp.appendChild(sw);
-      // Append popUp to Body
-      document.querySelector('.cart').appendChild(popUp);
 
       // function change categories
       function changeCategoriesInsideTabs(products) {
+        if (document.querySelector('.swiper')) {
+          document.querySelector('.swiper').remove();
+        }
+        const sw = document.createElement('div');
+        sw.classList.add('swiper');
+        sw.classList.add(classes.mySwiper);
+
+        // Swiper Wrapper
+        let swiperWrapper = document.createElement('div');
+        swiperWrapper.classList.add('swiper-wrapper');
+        swiperWrapper.classList.add(classes.swiperContainer);
+        sw.appendChild(swiperWrapper);
+        // append Swiper in popUp
+        popUp.appendChild(sw);
+        // Append popUp to Body
+        document.querySelector('.cart').appendChild(popUp);
         // Create and append slides
         swiperWrapper.textContent = '';
         for (let i = 0; i < products.length; i++) {
@@ -405,6 +408,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             });
           }
         }
+        // add To Cart Function
         async function addToCart(product) {
           try {
             const response = await axios.post(
@@ -444,7 +448,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           spaceBetween: 20, // Space between slides
           breakpoints: {
             1024: {
-              slidesPerView: products.length < 4 ? products.length : 4,
+              slidesPerView: products.length < 4 ? products.length : '4',
               spaceBetween: 20,
             },
           },
@@ -470,9 +474,7 @@ document.addEventListener('DOMContentLoaded', async function () {
           console.log(totalWidth);
           document.querySelector('.popup').style.width = `${totalWidth}px`;
         }
-        // prev and next
-        let con = document.createElement('div');
-        con.classList.add('arrowsContainer');
+
         if (products.length > mySwiper.params.slidesPerView) {
           const prevButton = document.createElement('img');
           prevButton.src =
