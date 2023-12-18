@@ -3,6 +3,7 @@ import devices from '../utils/sizes';
 
 const styles = {
   // start main styles
+  // main color:#91268F
   resetSpace: {
     margin: '0',
     padding: '0',
@@ -41,6 +42,21 @@ const styles = {
     'border-radius': '24px',
     border: '1px solid #ccc',
     'z-index': '999',
+    overflow: 'hidden',
+  },
+
+  popupOptions: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    width: '500px',
+    'max-width': '1200px',
+    'max-height': '90vh',
+    background: '#fff',
+    transform: 'translate(-50%, -50%)',
+    'border-radius': '24px',
+    border: '1px solid #ccc',
+    'z-index': '99999',
     overflow: 'hidden',
   },
   // Tabs
@@ -227,6 +243,51 @@ const styles = {
     //   display: 'none',
     // },
   },
+  // PopupOptions
+  form: {
+    padding: '40px 30px',
+  },
+  label: {
+    'font-weight': 'bold',
+  },
+  input: {
+    padding: '10px 5px',
+    border: '1px solid #91268F',
+    'border-radius': '10px',
+    color: '#9A9A9A',
+    outline: 'none',
+  },
+  inputContainer: {
+    display: 'flex',
+    'flex-direction': 'column',
+    gap: '6px',
+  },
+  // inputNumber: {
+  //   padding: '10px 5px',
+  //   border: '1px solid #91268F',
+  //   'border-radius': '10px',
+  //   outline: 'none',
+  // },
+  // inputNumberContainer: {
+  //   position: 'relative',
+  //   display: 'inline-block',
+  // },
+  // InputIcon: {
+  //   position: 'absolute',
+  //   top: '50%',
+  //   transform: 'translateY(-50%)',
+  //   width: '20px',
+  //   height: '20px',
+  //   cursor: 'pointer',
+  //   userSelect: 'none',
+  // },
+  // inputIconDecrement: {
+  //   left: '0',
+  // },
+  // inputIconIncrement: {
+  //   right: '0',
+  // },
+  // PopupOptions
 };
 
 export const { classes } = jss.createStyleSheet(styles).attach();
