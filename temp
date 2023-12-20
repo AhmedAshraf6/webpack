@@ -1,0 +1,179 @@
+if (categories?.length > 0) {
+  // Swiper
+
+  // function change categories
+  function changeCategoriesInsideTabs(products) {
+    if (document.querySelector('.swiper')) {
+      document.querySelector('.swiper').remove();
+    }
+    const sw = document.createElement('div');
+    sw.classList.add('swiper');
+    sw.classList.add(classes.mySwiper);
+
+    // Swiper Wrapper
+    let swiperWrapper = document.createElement('div');
+    swiperWrapper.classList.add('swiper-wrapper');
+    swiperWrapper.classList.add(classes.swiperContainer);
+    sw.appendChild(swiperWrapper);
+    // append Swiper in popUp
+    popUp.appendChild(sw);
+    // Append popUp to Body
+    document.querySelector('.cart').appendChild(popUp);
+    // Create and append slides
+    swiperWrapper.textContent = '';
+    for (let i = 0; i < products.length; i++) {
+      const item = products[i];
+      const slide = document.createElement('div');
+      slide.classList.add('swiper-slide');
+      slide.classList.add(classes.swiperSlide);
+
+      const mySLide = `<div class=${classes.popUpCard}>
+              <a class=${
+                classes.popUpContainerImg
+              } href="https://qsekts.zid.store/products/${item.id}">
+                  <img src=${item?.main_image} alt="img" class=${
+        classes.popUpImg
+      } target='_blank'>
+              </a>
+              <a class="${classes.link}" href="#">
+                  <h5 class="${classes.popUpCardHead} ${classes.resetSpace} ">${
+        item?.name.ar
+      }</h5>  
+              </a>
+              <div class="${classes.popUpCardFooter}">
+                ${
+                  item?.sale_price?.amount !== null &&
+                  item?.sale_price?.amount !== undefined
+                    ? `<span class="${classes.popUpCardSalePrice}">
+                            <div class=${classes.makeGap}>
+                      ${item?.sale_price?.amount}
+                      ${item?.sale_price?.currency}
+                        </div>
+                    </span>
+                    `
+                    : ''
+                }
+                <span class="${
+                  item?.sale_price?.amount > 0
+                    ? classes.popUpCardLineThrough
+                    : classes.popUpCardPrice
+                }">
+                  <div class=${classes.makeGap}>
+                    ${item?.price.amount}
+                    ${item?.price.currency}
+                  </div>
+                </span>
+                <div class="${
+                  classes.popUpCardCartImgContainer
+                } buttonCartToAdd">
+                    <img
+                      src="https://dashboard.tuskup.appsbunches.com/frontend/img/cart.svg"
+                      class=${classes.popUpCardCartImg}
+                    />
+                </div>
+              </div>
+            </div>`;
+
+      slide.innerHTML = mySLide;
+      swiperWrapper.appendChild(slide);
+      const cartButton = slide.querySelector('.buttonCartToAdd');
+      if (cartButton) {
+        cartButton.addEventListener('click', function () {
+          addToCart(item);
+        });
+      }
+    }
+    // add To Cart Function
+    async function addToCart(product) {
+      try {
+        const response = await axios.post(
+          'https://dashboard.tuskup.appsbunches.com/api/add-to-cart',
+          {
+            product,
+            'cart-session-id': window.cartObj.session_id,
+            'domain-store': window.location.hostname,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        AlertMessages({
+          image:
+            'https://dashboard.tuskup.appsbunches.com/frontend/img/success.svg',
+          color: '#91268F',
+          bgColor: '#F3F5F7',
+          message: `${response.data.message}`,
+        });
+        console.log('Product added to cart:', response.data);
+      } catch (error) {
+        AlertMessages({
+          image:
+            'https://dashboard.tuskup.appsbunches.com/frontend/img/error.svg',
+          color: '#CB1818',
+          bgColor: '#F1DFDF',
+          message: `${error.response?.data?.message}`,
+        });
+        console.error('Error adding product to cart:', error);
+      }
+    }
+    let mySwiper = new Swiper('.swiper', {
+      slidesPerView: products.length < 2 ? products.length : '2', // Show 2 slides by default
+      spaceBetween: 20, // Space between slides
+      breakpoints: {
+        1024: {
+          slidesPerView: products.length < 4 ? products.length : '4',
+          spaceBetween: 20,
+        },
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+    const lenSlides = Array.from(
+      { length: mySwiper.params.slidesPerView },
+      (_, index) => {
+        return index + 1;
+      }
+    );
+    let totalWidth = 0;
+    if (window.innerWidth < 576) {
+      document.querySelector('.popup').style.width = `90vw`;
+    } else {
+      lenSlides.forEach((slide) => {
+        const a = document.querySelector('.swiper-slide');
+        totalWidth += 300;
+      });
+      console.log(totalWidth);
+      document.querySelector('.popup').style.width = `${totalWidth}px`;
+    }
+
+    if (products.length > mySwiper.params.slidesPerView) {
+      const prevButton = document.createElement('img');
+      prevButton.src =
+        'https://dashboard.tuskup.appsbunches.com/frontend/img/Arrow%20-%20Right.svg';
+      prevButton.classList.add(classes.imgArrows);
+      prevButton.classList.add('swiper-button-prev');
+      sw.appendChild(prevButton);
+      prevButton.addEventListener('click', () => mySwiper.slidePrev());
+
+      const nextButton = document.createElement('img');
+      nextButton.src =
+        'https://dashboard.tuskup.appsbunches.com/frontend/img/Arrow%20-%20Left.svg';
+      nextButton.classList.add(classes.imgArrows);
+      nextButton.classList.add('swiper-button-next');
+      sw.appendChild(nextButton);
+      nextButton.addEventListener('click', () => mySwiper.slideNext());
+    } else {
+      const prev = document.querySelector('.swiper-button-prev');
+      const next = document.querySelector('.swiper-button-next');
+      if (prev || next) {
+        prev.remove();
+        next.remove();
+      }
+    }
+  }
+  changeCategoriesInsideTabs(categories[0].products);
+}

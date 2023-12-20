@@ -30,13 +30,13 @@ const styles = {
     cursor: 'pointer',
   },
   // main popup
+  // main popup
   popUp: {
     position: 'fixed',
     top: '50%',
     left: '50%',
     // width: '200px',
     'max-width': '1200px',
-    'max-height': '90vh',
     background: '#fff',
     transform: 'translate(-50%, -50%)',
     'border-radius': '24px',
@@ -100,7 +100,13 @@ const styles = {
     cursor: 'pointer',
   },
   // Cards
-
+  swiperSlide: {
+    // display: 'flex !important',
+    // 'flex-direction': 'column',
+    // 'justify-content': 'center',
+    // 'align-items': 'center',
+    // width:'256'
+  },
   popUpCard: {
     display: 'flex',
     'flex-direction': 'column',
@@ -120,10 +126,7 @@ const styles = {
     bottom: '0',
   },
   // swiper
-  swiperSlide: {
-    // display: 'grid !important',
-    // 'place-items': 'center',
-  },
+
   imgArrows: {
     width: '42px!important',
     height: '42px!important',
@@ -262,31 +265,31 @@ const styles = {
     'flex-direction': 'column',
     gap: '6px',
   },
-  // inputNumber: {
-  //   padding: '10px 5px',
-  //   border: '1px solid #91268F',
-  //   'border-radius': '10px',
-  //   outline: 'none',
-  // },
-  // inputNumberContainer: {
-  //   position: 'relative',
-  //   display: 'inline-block',
-  // },
-  // InputIcon: {
-  //   position: 'absolute',
-  //   top: '50%',
-  //   transform: 'translateY(-50%)',
-  //   width: '20px',
-  //   height: '20px',
-  //   cursor: 'pointer',
-  //   userSelect: 'none',
-  // },
-  // inputIconDecrement: {
-  //   left: '0',
-  // },
-  // inputIconIncrement: {
-  //   right: '0',
-  // },
+  inputNumber: {
+    padding: '10px 5px',
+    border: '1px solid #91268F',
+    'border-radius': '10px',
+    outline: 'none',
+  },
+  inputNumberContainer: {
+    position: 'relative',
+    display: 'inline-block',
+  },
+  InputIcon: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    width: '20px',
+    height: '20px',
+    cursor: 'pointer',
+    userSelect: 'none',
+  },
+  inputIconDecrement: {
+    left: '0',
+  },
+  inputIconIncrement: {
+    right: '0',
+  },
   // PopupOptions
 };
 
