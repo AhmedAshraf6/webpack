@@ -101,11 +101,10 @@ const styles = {
   },
   // Cards
   swiperSlide: {
-    // display: 'flex !important',
-    // 'flex-direction': 'column',
-    // 'justify-content': 'center',
-    // 'align-items': 'center',
-    // width:'256'
+    display: 'flex !important',
+    'flex-direction': 'column',
+    'justify-content': 'center',
+    'align-items': 'center',
   },
   popUpCard: {
     display: 'flex',
@@ -113,6 +112,7 @@ const styles = {
     'justify-content': 'space-between',
     gap: '20px',
     'max-width': '256px',
+    width: '100%',
   },
   con: {
     position: 'absolute',
@@ -233,37 +233,80 @@ const styles = {
     'font-size': '16px',
     'font-weight': 'bold',
   },
-  [devices.md]: {
-    popUpFooterButton: {
-      padding: '10px 100px',
-    },
-  },
-  [devices.lg]: {
-    Messages: {
-      width: '500px',
-    },
-    // con: {
-    //   display: 'none',
-    // },
-  },
+
   // PopupOptions
+  popupOptions: {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '700px',
+    'max-width': '700px',
+    'max-height': '700px',
+    background: '#fff',
+    'border-radius': '24px',
+    border: '1px solid #ccc',
+    'z-index': '99999',
+    overflow: 'hidden',
+  },
   form: {
     padding: '40px 30px',
+    display: 'flex',
+    'flex-direction': 'column',
+    gap: '20px',
+    height: '300px',
+    'overflow-y': 'auto',
+  },
+  twoInputsContainer: {
+    display: 'flex',
+    // 'align-items': 'center',
+    gap: '10px',
+  },
+  inputFlex2: {
+    flex: '2',
+  },
+  inputFlex1: {
+    flex: '1',
   },
   label: {
     'font-weight': 'bold',
+  },
+  checkBox: {
+    // display: 'none',
+    '&:hover': {
+      // Styles for hover state
+      backgroundColor: 'lightgray', // Change background color on hover
+    },
   },
   input: {
     padding: '10px 5px',
     border: '1px solid #91268F',
     'border-radius': '10px',
-    color: '#9A9A9A',
+    // color: '#9A9A9A',
+    'font-size': '16px',
+    'font-weight': 'bold',
     outline: 'none',
   },
   inputContainer: {
     display: 'flex',
     'flex-direction': 'column',
     gap: '6px',
+  },
+  buttonSubmit: {
+    position: 'absolute',
+    bottom: '7%',
+    left: '50%',
+    transform: 'translate(-50%)',
+    background: '#91268F',
+    outline: 'none',
+    'font-weight': 'bold',
+    color: '#fff',
+    'border-radius': '28px',
+    border: 'none',
+    cursor: 'pointer',
+    width: '300px',
+    height: '26px',
+    'font-size': '16px',
   },
   inputNumber: {
     padding: '10px 5px',
@@ -291,6 +334,27 @@ const styles = {
     right: '0',
   },
   // PopupOptions
+
+  // Screen SIzes
+  [devices.md]: {
+    popUpFooterButton: {
+      padding: '10px 100px',
+    },
+  },
+  [devices.lg]: {
+    Messages: {
+      width: '500px',
+    },
+    buttonSubmit: {
+      width: '400px',
+      height: '35px',
+      'font-size': '18px',
+    },
+    // con: {
+    //   display: 'none',
+    // },
+  },
+  // Screen SIzes
 };
 
 export const { classes } = jss.createStyleSheet(styles).attach();

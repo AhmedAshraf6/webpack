@@ -5,7 +5,9 @@ jss.setup(preset());
 
 import axios from 'axios';
 import Swiper from 'swiper';
-
+// images
+import img1 from './assets/checked.svg';
+import img2 from './assets/unchecked.svg';
 import 'swiper/swiper-bundle.css';
 import 'swiper/css/navigation';
 
@@ -181,12 +183,13 @@ class Ui {
     let totalWidth = 0;
     if (window.innerWidth < 576) {
       document.querySelector('.popup').style.width = `90vw`;
+    } else if (window.innerWidth > 1024 && products.length === 1) {
+      document.querySelector('.popup').style.width = `600px`;
     } else {
       lenSlides.forEach((slide) => {
         const a = document.querySelector('.swiper-slide');
         totalWidth += 300;
       });
-      console.log(totalWidth);
       document.querySelector('.popup').style.width = `${totalWidth}px`;
     }
 
@@ -327,14 +330,56 @@ class Ui {
     this.addElementToPopup(categoriesPopupTabs);
   }
 }
+
+document.addEventListener('DOMContentLoaded', async function () {
+  // if (window.location.pathname === '/cart/view') {
+  const productsData = new GetData();
+  const ui = new Ui();
+  const productoption = new ProductOptions();
+  productsData.getMyData().then((data) => {
+    if (data?.products?.length > 0) {
+      ui.setupProductModal(data?.products);
+      productoption.setupProductOption();
+    } else if (data?.categories?.length > 0) {
+      ui.setupCategoryModal(data?.categories);
+      // productoption.setupProductOption();
+    }
+  });
+  // }
+});
 class ProductOptions extends Ui {
   setupProductOption() {
     this.createPopupOptions();
     this.makeHeader();
     this.createForm();
-    this.createInput('text', 'اختر اللون', 'اختر اللون');
-    this.createInputNumber({ label: 'الكمية' });
+
+    this.addTwoInputsTogether();
+
+    this.createInput({
+      type: 'text',
+      placeholder: 'النص',
+      label: 'نص الاهداء',
+    });
     this.createDropdown({ label: 'اختر اللون' });
+    this.createCheckbox({ label: 'اضافات علي المنتج' });
+    this.createButton({ text: 'حفظ واضافة للسلة' });
+  }
+  addTwoInputsTogether() {
+    const twoInputContainer = document.createElement('div');
+    twoInputContainer.classList.add(classes.twoInputsContainer);
+    twoInputContainer.classList.add('twoInputsContainer');
+    document.querySelector('.AnaqidForm').appendChild(twoInputContainer);
+
+    this.createDropdown({
+      label: 'مادة الهيكل',
+      addToContainer: 'twoInputsContainer',
+      extraStyle: classes.inputFlex2,
+    });
+    this.createInputNumber({
+      label: 'الكمية',
+      addToContainer: 'twoInputsContainer',
+      extraStyle: classes.inputFlex1,
+    });
   }
   // Create popupOptions
   createPopupOptions() {
@@ -342,7 +387,7 @@ class ProductOptions extends Ui {
     popupOptions.classList.add(classes.popupOptions);
     popupOptions.classList.add('popupOptions');
     popupOptions.addEventListener('click', function (event) {
-      if (event.target.classList.contains('clo se')) {
+      if (event.target.classList.contains('close')) {
         popupOptions.remove();
       }
     });
@@ -366,67 +411,74 @@ class ProductOptions extends Ui {
   }
 
   // Create input
-  createInput(type, placeholder, label) {
+  createInput({ type, placeholder, label, addToContainer }) {
     const inputContainer = document.createElement('div');
     inputContainer.classList.add(classes.inputContainer);
-    inputContainer.innerHTML = `<label class="${classes.label}">${label}</label><input class=${classes.input} type=${type} placeholder=${placeholder}/>`;
-    document.querySelector('.AnaqidForm').appendChild(inputContainer);
+    inputContainer.innerHTML = `<label class="${classes.label}">${label}</label><input class=${classes.input} type=${type} placeholder=${placeholder} >`;
+    if (addToContainer) {
+      document.querySelector(`.${addToContainer}`).appendChild(inputContainer);
+    } else {
+      document.querySelector('.AnaqidForm').appendChild(inputContainer);
+    }
   }
   // Number Input
-  createInputNumber({ type, placeholder, label }) {
+  createInputNumber({ type, placeholder, label, addToContainer, extraStyle }) {
     const inputContainer = document.createElement('div');
     inputContainer.classList.add(classes.inputContainer);
-    inputContainer.innerHTML = `<label class="${classes.label}">${label}</label><input type="number" min="0" max="100" value="10" class=${classes.inputNumber} />`;
+    inputContainer.classList.add(extraStyle);
+    inputContainer.innerHTML = `<label class="${classes.label}">${label}</label><input type="number" min="0" max="100" value="10" class=${classes.input} />`;
     //   inputContainer.innerHTML = `<input type="number" min="0" max="100" value="10" class=${classes.input} />
     // <img src=${img2} alt="Decrement" class="${classes.InputIcon} ${classes.inputIconDecrement}" />
     // <img src=${img1} alt="Increment" class="${classes.InputIcon} ${classes.inputIconIncrement}"/>`;
-    document.querySelector('.AnaqidForm').appendChild(inputContainer);
+    if (addToContainer) {
+      document.querySelector(`.${addToContainer}`).appendChild(inputContainer);
+    } else {
+      document.querySelector('.AnaqidForm').appendChild(inputContainer);
+    }
   }
   // Dropdown
-  createDropdown({ type, placeholder, label }) {
+  createDropdown({ type, placeholder, label, addToContainer, extraStyle }) {
     const inputContainer = document.createElement('div');
     inputContainer.classList.add(classes.inputContainer);
+    inputContainer.classList.add(extraStyle);
     inputContainer.innerHTML = `<label class="${classes.label}"  >${label}</label><select id="mySelect" class=${classes.input}>
-                                    <option value="option1">Option 1</option>
-                                    <option value="option2">Option 2</option>
-                                    <option value="option3">Option 3</option>
+                                    <option value="option1">قماش</option>
+                                    <option value="option2">معدن</option>
+                                    <option value="option3">بلاستيك</option>
                                 </select>`;
-
-    document.querySelector('.AnaqidForm').appendChild(inputContainer);
+    if (addToContainer) {
+      document.querySelector(`.${addToContainer}`).appendChild(inputContainer);
+    } else {
+      document.querySelector('.AnaqidForm').appendChild(inputContainer);
+    }
   }
-  // Checkbox
+  // Select Box
   createCheckbox({ type, placeholder, label }) {
     const inputContainer = document.createElement('div');
     inputContainer.classList.add(classes.inputContainer);
-    inputContainer.innerHTML = `<label class="${classes.label}"  >${label}</label><select id="mySelect" class=${classes.input}>
-                                    <option value="option1">Option 1</option>
-                                    <option value="option2">Option 2</option>
-                                    <option value="option3">Option 3</option>
-                                </select>`;
+    inputContainer.innerHTML = `<label class="${classes.label}"  >${label}</label>
+                        <div>
+                            <input type="checkbox" id="scales" name="scales" checked class="${classes.checkBox} checkbox-input"/>
+                            <label for="scales" class="checkbox-label">خيار 1</label>
+                        </div>    
+                        <div>
+                          <input type="checkbox" id="horns" name="horns" class="check_box"/>
+                          <label for="horns">خيار 2</label>
+                        </div>       
+    `;
 
     document.querySelector('.AnaqidForm').appendChild(inputContainer);
   }
-
+  // button
+  createButton({ text }) {
+    const Button = document.createElement('button');
+    Button.classList.add(classes.buttonSubmit);
+    Button.textContent = text;
+    document.querySelector('.AnaqidForm').appendChild(Button);
+  }
   // append any elements to popUpOption
   appendDataToPopup(element) {
     const popupOptions = document.querySelector('.popupOptions');
     popupOptions.appendChild(element);
   }
 }
-
-document.addEventListener('DOMContentLoaded', async function () {
-  // if (window.location.pathname === '/cart/view') {
-  const productsData = new GetData();
-  const ui = new Ui();
-  const productoption = new ProductOptions();
-  productsData.getMyData().then((data) => {
-    if (data?.products?.length > 0) {
-      ui.setupProductModal(data?.products);
-      productoption.setupProductOption();
-    } else if (data?.categories?.length > 0) {
-      ui.setupCategoryModal(data?.categories);
-      productoption.setupProductOption();
-    }
-  });
-  // }
-});
